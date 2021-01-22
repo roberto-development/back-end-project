@@ -1,0 +1,13 @@
+package com.networky.demo.service;
+
+import com.networky.demo.dto.ImageDTO;
+
+public class ImageServiceImpl implements ImageService {
+
+	@Override
+	public void updateImage(ImageDTO image) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.networky.demo.services.interfaces;
+
+public interface AccountService {
+
+}

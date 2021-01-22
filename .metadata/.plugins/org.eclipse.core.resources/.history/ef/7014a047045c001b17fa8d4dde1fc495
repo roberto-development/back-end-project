@@ -1,0 +1,94 @@
+package com.networky.demo.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity(name="User")
+@Table(name="users")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name="nome")
+	private String nome;
+
+	@Column(name="cognome")
+	private String cognome;
+
+	@Column(name="data_di_nascita")
+	private String dataDiNascita;
+
+	@Column(name="country")
+	private String country;
+	
+//	(mappedBy = "user", cascade = CascadeType.ALL)
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "users_id")
+//	private Image image;
+
+	public User() {
+		
+	}
+	
+	public User(String nome, String cognome, String dataDiNascita, String country) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataDiNascita = dataDiNascita;
+		this.country = country;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public String getDataDiNascita() {
+		return dataDiNascita;
+	}
+
+	public void setDataDiNascita(String dataDiNascita) {
+		this.dataDiNascita = dataDiNascita;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", dataDiNascita=" + dataDiNascita
+				+ ", country=" + country + "]";
+	}
+	
+}

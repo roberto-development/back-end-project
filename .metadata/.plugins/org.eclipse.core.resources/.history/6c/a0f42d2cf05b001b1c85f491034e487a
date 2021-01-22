@@ -1,0 +1,5 @@
+package com.networky.demo.rest;
+
+public class ImageController {
+
+}

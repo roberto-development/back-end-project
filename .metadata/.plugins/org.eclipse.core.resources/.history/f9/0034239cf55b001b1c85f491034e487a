@@ -1,0 +1,49 @@
+package com.networky.demo.services.implementations;
+
+import javax.transaction.Transactional;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.networky.demo.dtos.AccountDTO;
+import com.networky.demo.entities.Account;
+import com.networky.demo.services.interfaces.AccountService;
+
+public class AccountServiceImpl implements AccountService {
+
+	@Override
+	@Transactional
+	public AccountDTO updateAccount(AccountDTO account) {
+		AccountDTO result = null ;
+
+		Account theAccount = new Account();
+		theAccount.setEmail(account.getEmail());
+		theAccount.setPassword(account.getPassword());
+
+		Account theQueryAccount = userDAO.userLogin(theAccount); 
+
+		if(account.getNewEmail() != null) {
+
+			theQueryAccount.setEmail(account.getNewEmail());
+
+		}
+
+		if(account.getNewPassword() != null) {
+
+			theQueryAccount.setPassword(account.getNewPassword());
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			theQueryAccount.setPassword(encoder.encode(theQueryAccount.getPassword()));
+		}
+
+		Account theUpdatedAccount = userDAO.updateAccount(theQueryAccount);
+
+		result = mapperProva.toAccountDTO(theUpdatedAccount);
+
+
+
+		return result;
+
+	}
+	
+	
+
+}

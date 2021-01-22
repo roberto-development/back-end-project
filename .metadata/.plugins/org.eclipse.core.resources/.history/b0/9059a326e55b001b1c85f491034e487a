@@ -1,0 +1,5 @@
+package com.networky.demo.dao;
+
+public interface ImageDAO {
+
+}

@@ -1,0 +1,29 @@
+package com.networky.demo.daos.implementations;
+
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.networky.demo.daos.interfaces.ImageDAO;
+import com.networky.demo.entities.Image;
+
+@Repository
+public class ImageDAOimpl implements ImageDAO {
+
+	private final EntityManager entityManager;
+	
+	@Autowired
+	public ImageDAOimpl(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+
+	@Override
+	public void saveOrUpdateImage(Image image) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.saveOrUpdate(image);
+	}
+
+}

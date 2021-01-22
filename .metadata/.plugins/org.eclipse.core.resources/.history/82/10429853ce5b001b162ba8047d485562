@@ -1,0 +1,26 @@
+package com.networky.demo.service;
+
+import com.networky.demo.dto.AccountDTO;
+import com.networky.demo.dto.ImageDTO;
+import com.networky.demo.dto.UserDTO;
+import com.networky.demo.entity.Account;
+import com.networky.demo.entity.User;
+
+public interface UserService {
+
+	
+	public User saveUser(AccountDTO account);
+	
+	public UserDTO userLogin(Account account);
+
+//	public AccountDTO updateEmail(AccountDTO account);
+//
+//	public AccountDTO updatePassword(AccountDTO account);
+
+	public AccountDTO updateAccount(AccountDTO account);
+	
+	public UserDTO updateUser(AccountDTO account);
+
+	public UserDTO updateImage(ImageDTO image);
+
+}

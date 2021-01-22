@@ -1,0 +1,17 @@
+package com.networky.demo.daos.implementations;
+
+import org.hibernate.Session;
+
+import com.networky.demo.daos.interfaces.AccountDAO;
+import com.networky.demo.entities.Account;
+
+public class AccountDAOimpl implements AccountDAO {
+
+	@Override
+	public Account updateAccount(Account account) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.saveOrUpdate(account);
+		return account;
+	}
+
+}

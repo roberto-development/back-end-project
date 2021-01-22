@@ -1,0 +1,5 @@
+package com.networky.demo.services.implementations;
+
+public class AccountServiceImpl {
+
+}

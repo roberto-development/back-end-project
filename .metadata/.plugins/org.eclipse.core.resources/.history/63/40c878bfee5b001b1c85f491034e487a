@@ -1,0 +1,19 @@
+package com.networky.demo.dao;
+
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+
+import com.networky.demo.entity.Image;
+
+public class ImageDAOimpl implements ImageDAO {
+
+	private final EntityManager entityManager;
+	
+	@Override
+	public void saveOrUpdateImage(Image image) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.saveOrUpdate(image);
+	}
+
+}

@@ -1,0 +1,10 @@
+package com.networky.demo.dao;
+
+import com.networky.demo.entity.Image;
+
+public interface ImageDAO {
+
+	public void saveOrUpdateImage(Image image);
+	
+}
+ 

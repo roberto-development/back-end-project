@@ -1,0 +1,87 @@
+package com.networky.demo.mapper;
+
+import com.networky.demo.dtos.AccountDTO;
+import com.networky.demo.dtos.UserDTO;
+import com.networky.demo.entities.Account;
+import com.networky.demo.entities.User;
+
+
+public class MapperProvaImpl implements MapperProva {
+
+	//	@Override
+	//	public Account toAccount(AccountDTO account) {
+	//		// TODO Auto-generated method stub
+	//		return null;
+	//	}
+
+	@Override
+	public AccountDTO toAccountDTO(Account account) {
+		AccountDTO toAccountDTO = new AccountDTO();
+		User user = account.getUser();
+
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(user.getId());
+		userDTO.setNome(user.getNome());
+		userDTO.setCognome(user.getCognome());
+		userDTO.setDataDiNascita(user.getDataDiNascita());
+		userDTO.setCountry(user.getCountry());
+
+		toAccountDTO.setId(account.getId());
+		toAccountDTO.setEmail(account.getEmail());
+		toAccountDTO.setPassword(account.getPassword());
+		toAccountDTO.setUserDTO(userDTO);
+
+		return toAccountDTO;
+	}
+
+	@Override
+	public UserDTO toUserDTO(User user) {
+
+		UserDTO newUserDTO = new UserDTO();
+		newUserDTO.setId(user.getId());
+		newUserDTO.setNome(user.getNome());
+		newUserDTO.setCognome(user.getCognome());
+		newUserDTO.setDataDiNascita(user.getDataDiNascita());
+		newUserDTO.setCountry(user.getCountry());
+		return newUserDTO;
+
+	}
+
+	@Override
+	public Account dtoToAccount(AccountDTO account) {
+		Account toAccount = new Account();
+		UserDTO userFromAccount = account.getUserDTO();
+		System.out.println("\nUserFromAccount (DtoToAccount)" + userFromAccount.toString());
+		User newUser = DtoToUser(userFromAccount);
+		System.out.println("\nUserFromAccount (DtoToUser)" + newUser.toString());
+		toAccount.setId(account.getId());
+		toAccount.setEmail(account.getEmail());
+		toAccount.setPassword(account.getPassword());
+		toAccount.setUser(newUser);
+		System.out.println(toAccount.toString());
+
+		return toAccount;
+	}
+
+
+	@Override
+	public User DtoToUser(UserDTO userDTO) {
+
+		System.out.println("\nuserDTO da param" + userDTO.toString());
+		User newUser = new User();
+		//		newUser.setId(userDTO.getId());
+		newUser.setId(userDTO.getId());
+		newUser.setNome(userDTO.getNome());
+		newUser.setCognome(userDTO.getCognome());
+		newUser.setDataDiNascita(userDTO.getDataDiNascita());
+		newUser.setCountry(userDTO.getCountry());
+
+		System.out.println("\nNewUser from DtoToUser : " + newUser.toString());
+		return newUser;
+
+	}
+
+
+
+
+}

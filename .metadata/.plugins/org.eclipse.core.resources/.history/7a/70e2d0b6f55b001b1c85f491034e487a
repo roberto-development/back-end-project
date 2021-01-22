@@ -1,0 +1,5 @@
+package com.networky.demo.daos.interfaces;
+
+public interface AccountDAO {
+
+}

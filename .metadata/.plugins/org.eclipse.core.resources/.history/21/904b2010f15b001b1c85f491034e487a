@@ -1,0 +1,21 @@
+package com.networky.demo.mapper;
+
+import com.networky.demo.dto.AccountDTO;
+import com.networky.demo.dto.UserDTO;
+import com.networky.demo.entity.Account;
+import com.networky.demo.entity.User;
+
+//@Mapper(componentModel = "spring")
+public interface MapperProva {
+	
+//	public Account toAccount(AccountDTO account);
+	
+	public AccountDTO toAccountDTO(Account account);
+	
+	public UserDTO toUserDTO(User user);
+	
+	public Account dtoToAccount(AccountDTO account);
+	
+	public User DtoToUser(UserDTO userDTO);
+	
+}

@@ -1,0 +1,5 @@
+package com.networky.demo.service;
+
+public interface ImageService {
+
+}

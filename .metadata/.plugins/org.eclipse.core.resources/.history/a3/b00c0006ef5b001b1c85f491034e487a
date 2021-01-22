@@ -1,0 +1,27 @@
+package com.networky.demo.dao;
+
+import com.networky.demo.entity.Account;
+import com.networky.demo.entity.Image;
+import com.networky.demo.entity.User;
+
+
+public interface UserDAO {
+
+	public Account userLogin(Account account);
+	
+	public User saveUser(Account account);
+
+//	public Account updateEmail(Account account);
+//
+//	public Account updatePassword(Account accountCheck);
+
+	public Account updateAccount(Account accountCheck);
+	
+	public User updateUser(Account account);
+
+	public User updateImage(User newUserForImage);
+	
+	public void saveOrUpdateImage(Image image);
+	
+	
+}

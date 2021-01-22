@@ -1,0 +1,14 @@
+package com.networky.demo.daos.implementations;
+
+import com.networky.demo.daos.interfaces.AccountDAO;
+import com.networky.demo.entities.Account;
+
+public class AccountDAOimpl implements AccountDAO {
+
+	@Override
+	public Account updateAccount(Account account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

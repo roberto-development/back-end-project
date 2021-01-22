@@ -1,0 +1,8 @@
+package com.networky.demo.service;
+
+import com.networky.demo.dto.ImageDTO;
+
+public interface ImageService {
+
+	public void updateImage(ImageDTO image);
+}

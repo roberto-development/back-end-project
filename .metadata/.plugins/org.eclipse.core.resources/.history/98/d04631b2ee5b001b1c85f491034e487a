@@ -1,0 +1,13 @@
+package com.networky.demo.dao;
+
+import com.networky.demo.entity.Image;
+
+public class ImageDAOimpl implements ImageDAO {
+
+	@Override
+	public void saveOrUpdateImage(Image image) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
