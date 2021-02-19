@@ -3,10 +3,11 @@ package com.networky.demo.services.implementations;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.daos.implementations.UserDAOimpl;
 import com.networky.demo.daos.interfaces.AccountDAO;
 import com.networky.demo.daos.interfaces.UserDAO;
 import com.networky.demo.dtos.AccountDTO;
@@ -19,8 +20,8 @@ public class AccountServiceImpl implements AccountService {
 	
 	private final AccountDAO accountDAO;
 	
-	@Autowired
-	private UserDAO userDAO;
+//	@Qualifier(value="user")
+//	private UserDAO userDAO;
 	
 	private MapperProvaImpl mapperProva = new MapperProvaImpl();
 	
@@ -28,6 +29,7 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	public AccountServiceImpl(AccountDAO accountDAO) {
 		this.accountDAO = accountDAO;
+//		this.userDAO = userDAO;
 	}
 
 
@@ -43,25 +45,25 @@ public class AccountServiceImpl implements AccountService {
 		
 		System.out.println("\n prima di login : " + theAccount.toString());
 
-		Account theQueryAccount = userDAO.getUser(theAccount); 
-		System.out.println("\nTheQueryAccount : " + theQueryAccount.toString());
+//		Account theQueryAccount = userDAO.getUser(theAccount); 
+//		System.out.println("\nTheQueryAccount : " + theQueryAccount.toString());
 
 		if(account.getNewEmail() != null) {
 
-			theQueryAccount.setEmail(account.getNewEmail());
+//			theQueryAccount.setEmail(account.getNewEmail());
 
 		}
 
 		if(account.getNewPassword() != null) {
 
-			theQueryAccount.setPassword(account.getNewPassword());
+//			theQueryAccount.setPassword(account.getNewPassword());
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			theQueryAccount.setPassword(encoder.encode(theQueryAccount.getPassword()));
+//			theQueryAccount.setPassword(encoder.encode(theQueryAccount.getPassword()));
 		}
 
-		Account theUpdatedAccount = accountDAO.updateAccount(theQueryAccount);
+//		Account theUpdatedAccount = accountDAO.updateAccount(theQueryAccount);
 
-		result = mapperProva.toAccountDTO(theUpdatedAccount);
+//		result = mapperProva.toAccountDTO(theUpdatedAccount);
 
 		System.out.println("\nResult : " + result.toString());
 

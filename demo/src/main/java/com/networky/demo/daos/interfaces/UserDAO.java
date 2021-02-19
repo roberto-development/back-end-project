@@ -3,7 +3,6 @@ package com.networky.demo.daos.interfaces;
 import com.networky.demo.entities.Account;
 import com.networky.demo.entities.User;
 
-
 public interface UserDAO {
 
 	public Account getUser(Account account);
@@ -18,6 +17,9 @@ public interface UserDAO {
 
 //	public Account updateAccount(Account accountCheck);
 	
+	public User toUpdateUser(User user);
+
+	public User findById(int usersId);
 
 //	public User updateImage(User newUserForImage);
 	

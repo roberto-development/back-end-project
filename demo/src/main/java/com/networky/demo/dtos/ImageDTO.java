@@ -3,24 +3,27 @@ package com.networky.demo.dtos;
 import java.util.Arrays;
 
 public class ImageDTO {
+	
+	private int id;
 
-	private int users_id;
+	private int usersId;
 	
 	private byte[] img;
 
 	public ImageDTO() { }
 
-	public ImageDTO(int users_id, byte[] img) {
-		this.users_id = users_id;
+	public ImageDTO(int id, int usersId, byte[] img) {
+		this.id = id;
+		this.usersId = usersId;
 		this.img = img;
 	}
 
-	public int getUsers_id() {
-		return users_id;
+	public int getUsersId() {
+		return usersId;
 	}
 
-	public void setUsers_id(int users_id) {
-		this.users_id = users_id;
+	public void setUsersId(int usersId) {
+		this.usersId = usersId;
 	}
 
 	public byte[] getImg() {
@@ -30,10 +33,18 @@ public class ImageDTO {
 	public void setImg(byte[] img) {
 		this.img = img;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {
-		return "ImageDTO [users_id=" + users_id + ", img=" + Arrays.toString(img) + "]";
+		return "ImageDTO [usersId=" + usersId + ", img=" + Arrays.toString(img) + "]";
 	}
 	
 }

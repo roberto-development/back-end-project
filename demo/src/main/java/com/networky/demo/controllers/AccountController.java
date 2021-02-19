@@ -11,7 +11,7 @@ import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.services.interfaces.AccountService;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api")
 @CrossOrigin(origins ="*" , allowedHeaders = "*" )
 public class AccountController {
 	
@@ -24,12 +24,11 @@ public class AccountController {
 	}
 
 
-
+	@CrossOrigin(origins = "http://localhost:4200/reset-password", allowedHeaders = {})
 	@PutMapping("/update")
 	public AccountDTO updateAccount(@RequestBody AccountDTO account) {
 		System.out.println("\nController account : " + account.toString());
 		return accountService.updateAccount(account);
-//		return account;
 	}
 
 }

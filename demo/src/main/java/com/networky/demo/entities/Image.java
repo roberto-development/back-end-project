@@ -1,5 +1,6 @@
 package com.networky.demo.entities;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,9 @@ import javax.persistence.Table;
 
 @Entity(name = "Image")
 @Table(name="images")
-public class Image {
+public class Image implements Serializable {
+	
+//	 Serializable implemented because of error java.io.NotSerializableException
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +28,7 @@ public class Image {
 	private byte[] img;
 	
 //	(targetEntity = User.class, cascade = CascadeType.ALL)
-	@ManyToOne(targetEntity = com.networky.demo.entities.User.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = com.networky.demo.entities.User.class)
 	@JoinColumn(name = "users_id")
 	private User usersId;
 	

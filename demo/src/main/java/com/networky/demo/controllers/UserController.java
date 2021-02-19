@@ -39,19 +39,19 @@ public class UserController {
 		System.out.println("\n Controller saveuser : " + account.toString());
 
 		return  userService.saveUser(account);
-
-
 	}
-
-//	@PutMapping("/update")
-//	public AccountDTO updateAccount(@RequestBody AccountDTO account) {
-//		return userService.updateAccount(account);
-//	}
 
 	@PutMapping("/updateUser")
 	public UserDTO updateUser(@RequestBody AccountDTO account) {
 		System.out.println("\nController: account param : " + account.toString());
 		return userService.updateUser(account);
 	}
-
+	
+	
+	  @PutMapping("/userUpdate")
+	  public User updateUser(@RequestBody User user) {
+	  
+	  return userService.updateUser(user);
+	 
+	  }
 }

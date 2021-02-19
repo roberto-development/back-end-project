@@ -1,5 +1,7 @@
 package com.networky.demo.daos.implementations;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.networky.demo.daos.UserRepository;
 import com.networky.demo.daos.interfaces.UserDAO;
 import com.networky.demo.entities.Account;
 import com.networky.demo.entities.User;
@@ -17,26 +20,35 @@ public class UserDAOimpl implements UserDAO {
 
 
 	private final EntityManager entityManager;
+	private UserRepository userRepo;
 
 	@Autowired
 	public UserDAOimpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
+//		this.userRepo = userRepo;
 	}
 
+	
+	public Session getSession() {
+		return entityManager.unwrap(Session.class);
+	}
 
+//	public List<Account> getUserByEmail(String email) {
+//		
+//	}
 
 	@Override
 	public Account getUser(Account account) {
-		Session currentSession = entityManager.unwrap(Session.class);
+//		Session currentSession = entityManager.unwrap(Session.class);
 		Account findAccount = null;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Query<Account> theQuery = currentSession.createQuery("from Account where email= :email", Account.class)
+		Query<Account> theQuery = getSession().createQuery("from Account where email= :email", Account.class)
 				.setParameter("email", account.getEmail());
 		findAccount = theQuery.uniqueResult();
 		if(findAccount != null) {
 
 			boolean isPasswordMatch = encoder.matches(account.getPassword(), findAccount.getPassword());
-
+			
 			if(isPasswordMatch) {
 				return findAccount;
 			} else {
@@ -55,6 +67,7 @@ public class UserDAOimpl implements UserDAO {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Session currentSession = entityManager.unwrap(Session.class);
 		account.setPassword(encoder.encode(account.getPassword()));	
+//		account.getUser().set;
 		// image ha user, account ha user
 		
 		currentSession.saveOrUpdate(account);
@@ -126,7 +139,23 @@ public class UserDAOimpl implements UserDAO {
 		
 		return account.getUser();
 	}
+	
+	@Override
+	public User toUpdateUser(User user) {
+	Session currentSession = entityManager.unwrap(Session.class);
+	currentSession.saveOrUpdate(user);
+	System.out.println(user.toString());
+	return user;
+}
 
+
+
+	@Override
+	public User findById(int usersId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		return currentSession.find(User.class, usersId);
+	}
 
 
 //	@Override

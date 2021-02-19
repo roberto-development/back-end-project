@@ -19,6 +19,8 @@ public interface UserService {
 //	public AccountDTO updateAccount(AccountDTO account);
 	
 	public UserDTO updateUser(AccountDTO account);
+	
+	public User updateUser(User user);
 
 //	public void updateImage(ImageDTO image);
 

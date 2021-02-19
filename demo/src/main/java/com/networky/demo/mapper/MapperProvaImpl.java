@@ -51,14 +51,11 @@ public class MapperProvaImpl implements MapperProva {
 	public Account dtoToAccount(AccountDTO account) {
 		Account toAccount = new Account();
 		UserDTO userFromAccount = account.getUserDTO();
-		System.out.println("\nUserFromAccount (DtoToAccount)" + userFromAccount.toString());
 		User newUser = DtoToUser(userFromAccount);
-		System.out.println("\nUserFromAccount (DtoToUser)" + newUser.toString());
 		toAccount.setId(account.getId());
 		toAccount.setEmail(account.getEmail());
 		toAccount.setPassword(account.getPassword());
 		toAccount.setUser(newUser);
-		System.out.println(toAccount.toString());
 
 		return toAccount;
 	}

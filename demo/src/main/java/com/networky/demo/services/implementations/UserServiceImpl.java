@@ -1,10 +1,12 @@
 package com.networky.demo.services.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.networky.demo.daos.UserRepository;
 import com.networky.demo.daos.interfaces.UserDAO;
 import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.dtos.UserDTO;
@@ -18,18 +20,26 @@ import com.networky.demo.services.interfaces.UserService;
 public class UserServiceImpl implements UserService {
 
 	private final UserDAO userDAO;
+//	private final UserRepository userRepo;
 	
 	private MapperProvaImpl mapperProva = new MapperProvaImpl();
 
 	@Autowired
 	public UserServiceImpl(UserDAO userDAO) {
+//		this.userRepo = userRepo;
 		this.userDAO = userDAO;
 	}
+	
+//	public List<Account> getUserByEmail(String email) {
+//		return userRepo.getUserByEmail(email)
+//	}
 
 	@Override
 	@Transactional
 	public User saveUser(AccountDTO account) {
+		System.out.println("\nuserService account param : " + account.toString());
 		Account saveAccount = mapperProva.dtoToAccount(account);
+		System.out.println("\nsaveACcount dto prima di userDAO" + saveAccount.toString());
 		return userDAO.saveUser(saveAccount);
 	}
 
@@ -42,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		if(accountDatabase != null) {
 
 			User userFromAccountDatabase = accountDatabase.getUser();
-
+//			accountDatabase.getUser()
 			UserDTO newUserDTO = mapperProva.toUserDTO(userFromAccountDatabase);
 			return newUserDTO;
 		} else {
@@ -50,6 +60,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public User updateUser(User user) {
+		User userToUpdate = userDAO.toUpdateUser(user);
+		return userToUpdate;
+	}
 
 //	@Override
 //	@Transactional
@@ -102,6 +118,7 @@ public class UserServiceImpl implements UserService {
 		theQueryAccount.getUser().setCognome(account.getUserDTO().getNewCognome());
 		theQueryAccount.getUser().setDataDiNascita(account.getUserDTO().getNewDataDiNascita());
 		theQueryAccount.getUser().setCountry(account.getUserDTO().getNewCountry());
+		
 		userDAO.updateUser(theQueryAccount);
 		
 //		nuovo oggetto con user aggiornato
@@ -111,6 +128,12 @@ public class UserServiceImpl implements UserService {
 		return userUpdated;
 
 	}
+	
+//	updateUser(user) 
+	/*
+	 * session = currentSess
+	 * 
+	 */
 	
 	public User setterUser(User user) {
 		User userDaAggiornare = new User();
