@@ -2,12 +2,15 @@ package com.networky.demo.dtos;
 
 import java.util.Arrays;
 
+import javax.persistence.Lob;
+
 public class ImageDTO {
 	
 	private int id;
 
 	private int usersId;
 	
+	@Lob
 	private byte[] img;
 
 	public ImageDTO() { }

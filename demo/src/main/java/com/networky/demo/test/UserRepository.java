@@ -1,4 +1,4 @@
-package com.networky.demo.daos;
+package com.networky.demo.test;
 
 import java.util.List;
 
@@ -8,26 +8,23 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.entities.Account;
 import com.networky.demo.entities.User;
 
-@Repository("userRepo")
+@Repository()
 //@EnableJpaRepositories
 public interface UserRepository extends JpaRepository<Account, Integer>, CrudRepository<Account, Integer> {
 	
-	/* 
-	 *find account by email and return proper user 
-	 */
-//	public final static String FIND_ACCOUNT_BY_EMAIL = "SELECT a " + "FROM Account a " + "WHERE a.email = :email";
-
-//	public Account findOne(Account email);
-	
 	public List<Account> findByEmail(String email);
 	
-	@Query("SELECT a FROM Account a WHERE a.email = :email")
-	public List<Account> findByEmailQuery(@Param(value="email") String email);
+//	@Query("SELECT a FROM Account a WHERE a.email = :email")
+//	public List<Account> findByEmailQuery(@Param(value="email") String email);
 	
-
-	public List<Account> saveUser(Account account);
+//	public List<Account> saveAccount(Account account);
 	
+//	test save user method
+	
+//	@Query("INSERT INTO Account a (id, email, password, id_user) VALUES (?,?,?,?)")
+//	public void saveAccountById(@Param(value="a") AccountDTO accountDto);
 }

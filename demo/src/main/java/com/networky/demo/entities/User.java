@@ -1,6 +1,7 @@
 package com.networky.demo.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="users")
@@ -32,14 +36,26 @@ public class User implements Serializable {
 	@Column(name="country")
 	private String country;
 	
-//	(mappedBy = "user", cascade = CascadeType.ALL)
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "users_id")
-//	private Image image;
+	@JsonIgnore
+	@OneToMany(mappedBy = "idUser", cascade = CascadeType.ALL)
+	private List<Post> post;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "usersId", cascade = CascadeType.ALL)
+	private List<Image> image;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "idSender", cascade = CascadeType.ALL)
+	private List<Friendship> friendshipSender;
+	
+//	@OneToMany(mappedBy = "status")
+//	private List<Status> friendshipStatus;
 
-	public User() {
-		
-	}
+	@JsonIgnore
+	@OneToMany(mappedBy = "idRecipient", cascade = CascadeType.ALL)
+	private List<Friendship> friendshipRecipient;
+	
+	public User() { }
 	
 	public User(String nome, String cognome, String dataDiNascita, String country) {
 		this.nome = nome;
@@ -90,6 +106,24 @@ public class User implements Serializable {
 		this.country = country;
 	}
 
+	
+//	public List<Post> getPost() {
+//		return post;
+//	}
+//
+//	public void setPost(List<Post> post) {
+//		this.post = post;
+//	}
+//
+	public List<Image> getImage() {
+		return image;
+	}
+
+	public void setImage(List<Image> image) {
+		this.image = image;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", dataDiNascita=" + dataDiNascita

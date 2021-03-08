@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.daos.UserRepository;
+import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.entities.Account;
 import com.networky.demo.entities.User;
 
@@ -21,15 +21,30 @@ public class TestService {
 		this.userRepo = userRepo;
 	}
 
-	@Transactional
-	public List<Account> getUserByEmail(String email) {
-		return userRepo.findByEmailQuery(email);
-	}
+//	@Transactional
+//	public List<Account> getUserById(String email) {
+//		return userRepo.findByEmailQuery(email);
+//	}
 	
 	@Transactional
-	public List<Account> saveUser(Account account) {
-		return userRepo.saveUser(account);
+	public void saveAccount(Account account) {
+		userRepo.save(account);
 	}
+	
+//	@Transactional
+//	public List<Account> saveUser(Account account) {
+//		return userRepo.saveUser(account);
+//	}
+
+//	@Transactional
+//	public void saveUser(AccountDTO accountDto) {
+//		return userRepo.saveAccountById(accountDto);
+//	}
+
+//	public List<User> saveUserByEmail(AccountDTO accountDto) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 	
 }

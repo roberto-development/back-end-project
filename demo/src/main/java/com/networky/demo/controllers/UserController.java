@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.dtos.UserDTO;
-import com.networky.demo.entities.Account;
-import com.networky.demo.entities.User;
 import com.networky.demo.services.interfaces.UserService;
 
 @RestController
@@ -27,31 +25,16 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public UserDTO getUser(@RequestBody Account account) {
-
+	public UserDTO getUser(@RequestBody AccountDTO account) {
+		System.out.println(account.toString());
 		UserDTO userLogin = userService.getUser(account);
 		return userLogin;
 
 	}
 
-	@PostMapping("/register")
-	public User registerUser(@RequestBody AccountDTO account) {
-		System.out.println("\n Controller saveuser : " + account.toString());
+	@PutMapping("/userUpdate")
+	public UserDTO updateUser(@RequestBody UserDTO user) {
+		return userService.updateUser(user);
 
-		return  userService.saveUser(account);
 	}
-
-	@PutMapping("/updateUser")
-	public UserDTO updateUser(@RequestBody AccountDTO account) {
-		System.out.println("\nController: account param : " + account.toString());
-		return userService.updateUser(account);
-	}
-	
-	
-	  @PutMapping("/userUpdate")
-	  public User updateUser(@RequestBody User user) {
-	  
-	  return userService.updateUser(user);
-	 
-	  }
 }

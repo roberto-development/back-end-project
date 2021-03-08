@@ -2,12 +2,15 @@ package com.networky.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.networky.demo.dtos.AccountDTO;
+import com.networky.demo.entities.User;
 import com.networky.demo.services.interfaces.AccountService;
 
 @RestController
@@ -22,13 +25,22 @@ public class AccountController {
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
 	}
-
+	
+	@PostMapping("/register")
+	public User registerAccount(@RequestBody AccountDTO accountDTO) {
+		return  accountService.saveAccount(accountDTO);
+	}
 
 	@CrossOrigin(origins = "http://localhost:4200/reset-password", allowedHeaders = {})
-	@PutMapping("/update")
-	public AccountDTO updateAccount(@RequestBody AccountDTO account) {
-		System.out.println("\nController account : " + account.toString());
-		return accountService.updateAccount(account);
+	@PutMapping("/updateAccount")
+	public AccountDTO updateAccount(@RequestBody AccountDTO accountDTO) {
+		return accountService.updateAccount(accountDTO);
+	}
+	
+	@DeleteMapping("/deleteAccount")
+	public void deleteAccount(@RequestBody AccountDTO accountDTO) {
+		System.out.println(accountDTO.toString());
+		accountService.deleteAccount(accountDTO);
 	}
 
 }
