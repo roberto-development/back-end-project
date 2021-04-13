@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categoria_post")
 public class Categoria implements Serializable {
@@ -24,6 +26,7 @@ public class Categoria implements Serializable {
 	private String nomeCategoria;
 	
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Post> idPost;
 
 	public Categoria() {
@@ -55,6 +58,11 @@ public class Categoria implements Serializable {
 
 	public void setIdPost(List<Post> idPost) {
 		this.idPost = idPost;
+	}
+
+	@Override
+	public String toString() {
+		return "Categoria [id=" + id + ", nomeCategoria=" + nomeCategoria + ", idPost=" + idPost + "]";
 	}
 	
 	

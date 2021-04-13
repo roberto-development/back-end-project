@@ -28,7 +28,6 @@ public interface UserMapper {
 		@Mapping(source = "newCognome", target = "cognome"),
 		@Mapping(source = "newDataDiNascita", target = "dataDiNascita"),
 		@Mapping(source = "newCountry", target = "country"),
-		@Mapping(target = "image", ignore = true)
 	})
 	public User newFieldsToEntity(UserDTO userDTO);
 		

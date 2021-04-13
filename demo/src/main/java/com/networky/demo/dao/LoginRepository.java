@@ -10,11 +10,13 @@ import org.springframework.stereotype.Repository;
 import com.networky.demo.entities.Account;
 
 @Repository
-public interface LoginDAO extends JpaRepository<Account, Integer> {
+public interface LoginRepository extends JpaRepository<Account, Integer> {
 
 	@Query(value = "SELECT a FROM Account a WHERE a.email= :email")
 	public Account findByEmail(@Param(value="email") String email);
 	
-//	public Account findAllByEmail(String email);
+//	getuser
+//	 @Query(value = "SELECT u FROM User u WHERE u.id= :id")
+//	public User findUserById(@Param(value="id") int id);
 	
 }

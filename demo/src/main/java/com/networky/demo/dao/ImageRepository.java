@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.networky.demo.entities.Image;
 
-public interface ImageDAO extends JpaRepository<Image, Integer>{
+public interface ImageRepository extends JpaRepository<Image, Integer>{
 
 //	public void saveOrUpdateImage(Image image);
 	

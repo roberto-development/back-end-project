@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.ImageDAO;
+import com.networky.demo.dao.ImageRepository;
 import com.networky.demo.dtos.ImageDTO;
 import com.networky.demo.dtos.UserDTO;
 import com.networky.demo.entities.Image;
@@ -29,14 +29,14 @@ public class ImageServiceImpl implements ImageService {
 	@Autowired
 	private EntityManager entityManager;
 
-	private final ImageDAO imageDAO;
+	private final ImageRepository imageDAO;
 	
 	private ImageMapper imgMapper = Mappers.getMapper(ImageMapper.class);
 	
 	private UserMapper mapper = Mappers.getMapper(UserMapper.class);
 	
 	@Autowired
-	public ImageServiceImpl(ImageDAO imageDAO, UserMapper mapper) {
+	public ImageServiceImpl(ImageRepository imageDAO, UserMapper mapper) {
 			this.imageDAO = imageDAO;
 			this.mapper = mapper;
 	};
@@ -85,10 +85,18 @@ public class ImageServiceImpl implements ImageService {
 			}
 			
 			User userEntity = mapper.DtoToEntityUser(user);
+				
 			Query<Image> theQuery = getSession().createQuery("from Image where users_id=:id", Image.class)
 					.setParameter("id", userEntity.getId());
 			Image myBlobDb = theQuery.getSingleResult();
+			if(myBlobDb != null) {
+				
 			byte[] encoded = Base64.getEncoder().encode(myBlobDb.getImg());
+			return encoded;
+			} else {
+				return null;
+			}
+			
 			
 //			byte[] myByte = imageDAO.blobToByte(userEntity);
 
@@ -96,7 +104,6 @@ public class ImageServiceImpl implements ImageService {
 //			Image myByte = imageDAO.
 //			byte[] encoded = Base64.getEncoder().encode(myBlobDb.getImg());
 			
-			return encoded;
 //			return myByte;
 	}
 	

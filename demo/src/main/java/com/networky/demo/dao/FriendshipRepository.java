@@ -12,7 +12,7 @@ import com.networky.demo.entities.Status;
 import com.networky.demo.entities.User;
 
 @Repository
-public interface FriendshipDAO extends JpaRepository<Friendship, Integer> {
+public interface FriendshipRepository extends JpaRepository<Friendship, Integer> {
 
 	List<Friendship> findByStatusAndIdSender(Status status, User user);
 	

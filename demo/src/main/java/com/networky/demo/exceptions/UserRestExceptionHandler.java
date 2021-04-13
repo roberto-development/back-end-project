@@ -23,6 +23,11 @@ public class UserRestExceptionHandler {
 
 
 	}
+	
+//	bc exception return bad request
+//	user not found return unauthorized
+	
+	
 
 //	@ExceptionHandler
 //	public ResponseEntity<ErrorResponse> handleAnyException(Exception exception) {

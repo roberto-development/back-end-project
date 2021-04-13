@@ -1,5 +1,7 @@
 package com.networky.demo.services.implementations;
 
+import java.util.HashMap;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -7,37 +9,95 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.AccountDAO;
+import com.networky.demo.dao.AccountRepository;
+import com.networky.demo.dao.LoginRepository;
 import com.networky.demo.dtos.AccountDTO;
+import com.networky.demo.dtos.TokenDTO;
+import com.networky.demo.dtos.UserDTO;
 import com.networky.demo.entities.Account;
 import com.networky.demo.entities.User;
+import com.networky.demo.exceptions.UserNotFoundException;
 import com.networky.demo.mapper.AccountMapper;
 import com.networky.demo.mapper.UserMapper;
 import com.networky.demo.services.interfaces.AccountService;
+import com.networky.demo.util.JwtUtils;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 	
-	private final AccountDAO accountDAO;
+	
+	private final AccountRepository accountDAO;
 	
 	@Autowired
 	private EntityManager entityManager;
 	
-	private AccountMapper mapper = Mappers.getMapper(AccountMapper.class);
+	@Autowired
+	private LoginRepository loginDAO;
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+	
+	HttpHeaders headers = new HttpHeaders();
+	
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
+	private AccountMapper accountMapper = Mappers.getMapper(AccountMapper.class);
 	
 	private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 	
 	
 	@Autowired
-	public AccountServiceImpl(AccountDAO accountDAO) {
+	public AccountServiceImpl(AccountRepository accountDAO) {
 		this.accountDAO = accountDAO;
 	}
 	
 	public Session getSession() {
 		return entityManager.unwrap(Session.class);
+	}
+	
+	@Override
+	@Transactional
+	public ResponseEntity<TokenDTO> login(AccountDTO accountDTO) {		
+		TokenDTO tokenDTO = new TokenDTO();
+		String email = accountDTO.getEmail();
+		Account userDb = loginDAO.findByEmail(email);
+		if(userDb != null) {
+			boolean isPasswordMatch = encoder.matches(accountDTO.getPassword(), userDb.getPassword());
+			if(isPasswordMatch) {
+				UserDTO userDTO = userMapper.entityToUserDTO(userDb.getUser());
+//				System.out.println(userDTO.toString());
+				
+				HashMap<String, Object> addedValues = new HashMap<String, Object>();
+				addedValues.put("id", userDTO.getId());
+				tokenDTO = jwtUtils.generateToken(addedValues);
+//				tokenDTO.setToken(token);
+//				tokenDTO.setExpiration(System.currentTimeMillis() + 60 * 60 * 24000);
+//				tokenDTO.setExpiration(token);
+//				userDTO.setToken(token);
+//				headers.add("Authentication", "Bearer " + tokenDTO.getToken());
+				System.out.println(tokenDTO.toString());
+				return ResponseEntity.ok().body(tokenDTO);
+			} else {
+				throw new UserNotFoundException("bad credentials");
+			}
+		} else {
+			throw new UserNotFoundException("error");
+		}
+	}
+	
+
+	public HttpHeaders getHeader(String token) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authentication", "Bearer" + token);
+		return headers;
 	}
 	
 	@Override
@@ -104,7 +164,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 		theQueryAccount.setUser(loggedAccount.getUser());
 		accountDAO.save(theQueryAccount);
-		result = mapper.entityToAccountDTO(theQueryAccount);
+		result = accountMapper.entityToAccountDTO(theQueryAccount);
 		result.setUserDTO(userMapper.entityToUserDTO(theQueryAccount.getUser()));
 		return result;
 
@@ -114,7 +174,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public void deleteAccount(AccountDTO accountDTO) {
-		Account newEntityAccount = mapper.dtoToAccountEntity(accountDTO);
+		Account newEntityAccount = accountMapper.dtoToAccountEntity(accountDTO);
 		accountDAO.delete(newEntityAccount);		
 	}
 	
@@ -133,7 +193,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	protected Account mapperEntity(AccountDTO accountDTO) {
-		Account saveEntityAccount = mapper.dtoToAccountEntity( accountDTO );
+		Account saveEntityAccount = accountMapper.dtoToAccountEntity( accountDTO );
 		User userEntityFromAccount = userMapper.DtoToEntityUser( accountDTO.getUserDTO() );
 		saveEntityAccount.setUser(userEntityFromAccount);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

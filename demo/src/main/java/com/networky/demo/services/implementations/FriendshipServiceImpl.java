@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.FriendshipDAO;
+import com.networky.demo.dao.FriendshipRepository;
 import com.networky.demo.dtos.FriendshipDTO;
 import com.networky.demo.entities.Friendship;
 import com.networky.demo.entities.Status;
@@ -22,7 +22,7 @@ import com.networky.demo.services.interfaces.FriendshipService;
 @Service
 public class FriendshipServiceImpl implements FriendshipService {
 
-	private final FriendshipDAO friendDao;
+	private final FriendshipRepository friendDao;
 	
 	@Autowired
 	private EntityManager entityManager;
@@ -31,7 +31,7 @@ public class FriendshipServiceImpl implements FriendshipService {
 	private FriendshipMapper fMapper = Mappers.getMapper(FriendshipMapper.class);
 
 	@Autowired
-	public FriendshipServiceImpl(FriendshipDAO friendDao) {
+	public FriendshipServiceImpl(FriendshipRepository friendDao) {
 		this.friendDao = friendDao;
 	}
 

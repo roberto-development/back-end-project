@@ -2,29 +2,31 @@ package com.networky.demo.dtos;
 
 import java.util.Arrays;
 
-import com.networky.demo.entities.User;
-
 public class PostDTO {
 
 	private int id;
 
 	private String descrizione;
-	
-	private int categoria;
-	
+
+//	deve diventare stringa
+	private String categoria;
+
+//	autore 
 	private int idUser;
-	
+
 	private byte[] img;
 
 	public PostDTO() {
 	}
 
-	public PostDTO(String descrizione, int categoria, int idUser, byte[] img) {
+
+	public PostDTO(String descrizione, String categoria, int idUser, byte[] img) {
 		this.descrizione = descrizione;
 		this.categoria = categoria;
 		this.idUser = idUser;
 		this.img = img;
 	}
+
 
 	public int getId() {
 		return id;
@@ -42,11 +44,11 @@ public class PostDTO {
 		this.descrizione = descrizione;
 	}
 
-	public int getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(int categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 

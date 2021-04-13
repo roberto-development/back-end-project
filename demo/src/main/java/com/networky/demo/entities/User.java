@@ -122,12 +122,13 @@ public class User implements Serializable {
 	public void setImage(List<Image> image) {
 		this.image = image;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", dataDiNascita=" + dataDiNascita
-				+ ", country=" + country + "]";
+				+ ", country=" + country + ", post=" + post + ", image=" + image + ", friendshipSender="
+				+ friendshipSender + ", friendshipRecipient=" + friendshipRecipient + "]";
 	}
+	
 	
 }

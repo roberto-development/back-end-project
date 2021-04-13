@@ -16,8 +16,8 @@ import com.networky.demo.services.interfaces.FriendshipService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins ="*" , allowedHeaders = "*" )
-public class FriendshipController {
+//@CrossOrigin(origins ="*" , allowedHeaders = "*" )
+public class FriendshipController extends CrossOriginController {
 
 	private FriendshipService friendService;
 	

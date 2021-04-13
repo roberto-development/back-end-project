@@ -23,6 +23,8 @@ public class UserDTO {
 	
 	private String newCountry;
 	
+	private String token;
+	
 	private List<ImageDTO> image;
 	
 	public UserDTO() {
@@ -35,6 +37,7 @@ public class UserDTO {
 		this.country = country;
 		this.image = image;
 	}
+
 
 	public UserDTO(String nome, String newNome, String cognome, String newCognome, String dataDiNascita,
 			String newDataDiNascita, String country, String newCountry, List<ImageDTO> image) {
@@ -129,11 +132,21 @@ public class UserDTO {
 		this.image = image;
 	}
 
+	public String getToken() {
+		return token;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [id=" + id + ", nome=" + nome + ", newNome=" + newNome + ", cognome=" + cognome
 				+ ", newCognome=" + newCognome + ", dataDiNascita=" + dataDiNascita + ", newDataDiNascita="
-				+ newDataDiNascita + ", country=" + country + ", newCountry=" + newCountry + ", image=" + image + "]";
+				+ newDataDiNascita + ", country=" + country + ", newCountry=" + newCountry + ", token=" + token
+				+ ", image=" + image + "]";
 	}
+
 
 }

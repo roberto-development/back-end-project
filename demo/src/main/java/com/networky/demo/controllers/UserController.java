@@ -1,7 +1,7 @@
 package com.networky.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +14,8 @@ import com.networky.demo.services.interfaces.UserService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins ="*" , allowedHeaders = "*" )
-public class UserController {
+//@CrossOrigin(origins ="*" , allowedHeaders = "*" )
+public class UserController extends CrossOriginController {
 
 	private UserService userService;
 
@@ -23,14 +23,22 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
+	
 
-	@PostMapping("/login")
-	public UserDTO getUser(@RequestBody AccountDTO account) {
-		System.out.println(account.toString());
-		UserDTO userLogin = userService.getUser(account);
-		return userLogin;
 
-	}
+//	@PostMapping("/login")
+//	public UserDTO login(@RequestBody AccountDTO accountDTO) {
+//		System.out.println(accountDTO.toString());
+//		UserDTO userLogin = userService.getUser(accountDTO);
+//		return userLogin;
+//	}
+//	
+//	@PostMapping("/getUser")
+//	public ResponseEntity<UserDTO> signIn(@RequestBody AccountDTO accountDTO) {
+//		ResponseEntity<UserDTO> userDTO = userService.getProfileUser(accountDTO);
+////		non restituire dto 
+//		return userDTO;
+//	}
 
 	@PutMapping("/userUpdate")
 	public UserDTO updateUser(@RequestBody UserDTO user) {

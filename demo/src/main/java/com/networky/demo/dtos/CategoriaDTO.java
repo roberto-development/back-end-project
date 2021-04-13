@@ -43,5 +43,12 @@ public class CategoriaDTO {
 	public void setIdPost(List<Post> idPost) {
 		this.idPost = idPost;
 	}
+
+	@Override
+	public String toString() {
+		return "CategoriaDTO [id=" + id + ", nomeCategoria=" + nomeCategoria + ", idPost=" + idPost + "]";
+	}
+	
+	
 	
 }
