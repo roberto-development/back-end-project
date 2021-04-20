@@ -16,7 +16,7 @@ public class NetworkyApplication {
 //	       return new WebMvcConfigurer() {
 //	           @Override
 //	           public void addCorsMappings(CorsRegistry registry) {
-//	               registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowedHeaders("*").exposedHeaders("Authorization");
+//	               registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowedHeaders("*").exposedHeaders("Authentication");
 //	           }
 //	       };
 //	   }

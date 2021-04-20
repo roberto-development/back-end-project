@@ -6,27 +6,25 @@ public class PostDTO {
 
 	private int id;
 
-	private String descrizione;
+	private String descrizionePost;
 
 //	deve diventare stringa
-	private String categoria;
+	private String categoriaPost;
 
 //	autore 
 	private int idUser;
 
-	private byte[] img;
+	private byte[] imgPost;
 
 	public PostDTO() {
 	}
 
-
-	public PostDTO(String descrizione, String categoria, int idUser, byte[] img) {
-		this.descrizione = descrizione;
-		this.categoria = categoria;
+	public PostDTO(String descrizionePost, String categoriaPost, int idUser, byte[] imgPost) {
+		this.descrizionePost = descrizionePost;
+		this.categoriaPost = categoriaPost;
 		this.idUser = idUser;
-		this.img = img;
+		this.imgPost = imgPost;
 	}
-
 
 	public int getId() {
 		return id;
@@ -36,22 +34,22 @@ public class PostDTO {
 		this.id = id;
 	}
 
-	public String getDescrizione() {
-		return descrizione;
+	public String getDescrizionePost() {
+		return descrizionePost;
 	}
 
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setDescrizionePost(String descrizionePost) {
+		this.descrizionePost = descrizionePost;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public String getCategoriaPost() {
+		return categoriaPost;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setCategoriaPost(String categoriaPost) {
+		this.categoriaPost = categoriaPost;
 	}
-
+	
 	public int getIdUser() {
 		return idUser;
 	}
@@ -60,20 +58,18 @@ public class PostDTO {
 		this.idUser = idUser;
 	}
 
-	public byte[] getImg() {
-		return img;
+	public byte[] getImgPost() {
+		return imgPost;
 	}
 
-	public void setImg(byte[] img) {
-		this.img = img;
+	public void setImgPost(byte[] imgPost) {
+		this.imgPost = imgPost;
 	}
 
 	@Override
 	public String toString() {
-		return "PostDTO [id=" + id + ", descrizione=" + descrizione + ", categoria=" + categoria + ", idUser=" + idUser
-				+ ", img=" + Arrays.toString(img) + "]";
+		return "PostDTO [id=" + id + ", descrizionePost=" + descrizionePost + ", categoriaPost=" + categoriaPost
+				+ ", idUser=" + idUser + ", imgPost=" + Arrays.toString(imgPost) + "]";
 	}
-	
-	
 
 }

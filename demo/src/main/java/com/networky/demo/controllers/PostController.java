@@ -55,9 +55,9 @@ public class PostController extends CrossOriginController {
 		postService.savePost(post);
 	}
 	
-	@DeleteMapping("/deletePost")
-	public void deletePost(@RequestBody PostDTO post) {
-		postService.deletePost(post);
-	}
+//	@DeleteMapping("/deletePost")
+//	public void deletePost(@RequestBody PostDTO post) {
+//		postService.deletePost(post);
+//	}
 	
 }

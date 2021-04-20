@@ -16,13 +16,13 @@ public interface PostMapper {
 //	PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 	
 	@Mappings({ 
-		@Mapping(source = "categoria", target = "categoria.nomeCategoria"),
+		@Mapping(source = "categoriaPost", target = "categoriaPost.nomeCategoria"),
 		@Mapping(source = "idUser", target = "idUser.id")
 		})
 	public Post postDtoToPostEntity(PostDTO post);
 		
 	@Mappings({ 
-		@Mapping(target = "categoria", source = "categoria.nomeCategoria"),
+		@Mapping(target = "categoriaPost", source = "categoriaPost.nomeCategoria"),
 		@Mapping(target = "idUser", source = "idUser.id")
 	})
 	public PostDTO postEntityToPostDTO(Post post);

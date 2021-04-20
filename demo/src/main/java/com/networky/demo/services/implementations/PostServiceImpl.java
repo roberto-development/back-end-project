@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.networky.demo.dao.PostRepository;
+import com.networky.demo.dao.UserRepository;
 import com.networky.demo.dtos.PostDTO;
 import com.networky.demo.dtos.UserDTO;
 import com.networky.demo.entities.Categoria;
@@ -21,6 +22,7 @@ import com.networky.demo.mapper.PostMapper;
 import com.networky.demo.mapper.UserMapper;
 import com.networky.demo.services.interfaces.CategoriaService;
 import com.networky.demo.services.interfaces.PostService;
+import com.networky.demo.services.interfaces.UserService;
 
 import io.jsonwebtoken.Jwts;
 
@@ -31,7 +33,8 @@ public class PostServiceImpl implements PostService {
 
 	private final CategoriaService categoriaService;
 
-	private final PostRepository postDAO;
+	private final PostRepository postRepository;
+	
 
 	@Autowired
 	private PostMapper postMapper = Mappers.getMapper(PostMapper.class);
@@ -40,12 +43,12 @@ public class PostServiceImpl implements PostService {
 	private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
 	@Autowired
-	public PostServiceImpl(PostRepository postDAO, CategoriaService categoriaService) {
-		this.postDAO = postDAO;
+	public PostServiceImpl(CategoriaService categoriaService, PostRepository postRepository) {
 		this.categoriaService = categoriaService;
-
+		this.postRepository = postRepository;
 	}
-
+	
+	
 	@Transactional
 	@Override
 	public List<PostDTO> getPost(UserDTO userId) {
@@ -61,13 +64,12 @@ public class PostServiceImpl implements PostService {
 		System.out.println("getPost " + userDTOtoEntity.toString());
 		List<PostDTO> listPostDTO = new ArrayList<PostDTO>();
 		try {
-			List<Post> getPostFromDb = postDAO.findPostByIdUser(userDTOtoEntity);
+			List<Post> getPostFromDb = postRepository.findPostByIdUser(userDTOtoEntity);
 
 			for (Post post : getPostFromDb) {
 
 				PostDTO postDto = postMapper.postEntityToPostDTO(post);
 				listPostDTO.add(postDto);
-				System.out.println("getPost" + postDto.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,38 +77,32 @@ public class PostServiceImpl implements PostService {
 		return listPostDTO;
 	}
 
+
 	@Transactional
 	@Override
 	public void savePost(PostDTO post) {
-		System.out.println(post.getCategoria());
-		String nomeCategoria = post.getCategoria();
-		System.out.println(nomeCategoria);
+		String nomeCategoria = post.getCategoriaPost();
 		Categoria categoriaPost = categoriaService.getCategoria(nomeCategoria);
 		System.out.println(categoriaPost.toString());
 		Post newPost = null; 
 		newPost = postMapper.postDtoToPostEntity(post);
-		newPost.setCategoria(categoriaPost); 
-
-		System.out.println("newPost : " + newPost.toString());
-
-		System.out.println("categoria post : " + newPost.getCategoria());
-
-		postDAO.save(newPost);
+		newPost.setCategoriaPost(categoriaPost); 
+		postRepository.save(newPost);
 	}
 
-	@Transactional
-	@Override
-	public void deletePost(PostDTO post) {
-		Post deletePost = postMapper.postDtoToPostEntity(post);
-		postDAO.deleteByIdUser(deletePost.getIdUser());
-	}
+//	@Transactional
+//	@Override
+//	public void deletePost(PostDTO post) {
+//		Post deletePost = postMapper.postDtoToPostEntity(post);
+//		postRepository.deleteByIdUser(deletePost.getAutorePost());
+//	}
 
 	@Override
 	public List<PostDTO> getPosts(HttpServletRequest httpRequest) {
 		String decodeBearer = httpRequest.getHeader("Authentication");
 		String decodeToken = decodeBearer.replace("Bearer", "");
 		Integer idAccount = (Integer) Jwts.parser().setSigningKey(SIGNATURE).parseClaimsJws(decodeToken).getBody().get("id");
-		List<Post> listPost = postDAO.findAllPostById(idAccount);
+		List<Post> listPost = postRepository.findAllPostById(idAccount);
 
 		List<PostDTO> returnList = postMapper.postEntityListToDTO(listPost);
 

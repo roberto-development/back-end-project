@@ -6,6 +6,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,39 @@ public class TokenFilterAuthentication extends OncePerRequestFilter {
 //
 	    @Autowired
 	    private JwtUtils jwtTokenUtil;
+	    
 	    @Override
 		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 				throws IOException, UserNotFoundException, ServletException {
+	    	
+	    	
+	    	String token = "";
+	    	try {
+	    		token = request.getParameter("Authentication");
+	    		if(token == "" || token.isEmpty()) {
+	    			chain.doFilter(request, response);
+	    			return;
+	    		} 
+	            } catch (Exception e) {
+	    			e.printStackTrace();
+	    	}
+	    	if (token.isEmpty() || token == null || !token.startsWith("Bearer")) {
+
+	            chain.doFilter(request, response);
+	            return;
+	        }
+	    	
+//	    	logger.debug("Running Nav Filter");
+//	    	
+//	    	HttpSession session = request.getSession(false);
+//
+//	        if (session != null) {
+//	            logger.debug("User is trying to access site for the second time");
+//	            logger.debug("Request URI: " + request.getRequestURI());
+//	        }
+//	        else {
+//	            logger.debug("Session is null");
+//	        };
 			// ignore OPTION method calls
 			if (HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())) {
 				chain.doFilter(request, response);
@@ -46,9 +77,9 @@ public class TokenFilterAuthentication extends OncePerRequestFilter {
 			if (header.isEmpty() || !header.startsWith("Bearer ")) {
 				throw new UserNotFoundException("token not found");
 			}
-			String token = header.replace("Bearer ", "");
+			String tokenHeader = header.replace("Bearer ", "");
 			try {
-				Jwts.parser().setSigningKey("Authentication").parseClaimsJws(token).getBody();
+				Jwts.parser().setSigningKey("Authentication").parseClaimsJws(tokenHeader).getBody();
 			} catch (ExpiredJwtException ex) {
 				request.setAttribute("expired", ex.getMessage());
 				final String expiredMsg = (String) request.getAttribute("expired");

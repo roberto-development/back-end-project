@@ -13,7 +13,7 @@ public interface PostService {
 	
 	public void savePost(PostDTO post);
 
-	public void deletePost(PostDTO post);
+//	public void deletePost(PostDTO post);
 
 	public List<PostDTO> getPosts(HttpServletRequest httpRequest);
 		

@@ -1,5 +1,7 @@
 package com.networky.demo.entities;
 
+import java.util.Arrays;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +21,11 @@ public class Post {
 	private int id;
 	
 	@Column(name = "descrizione")
-	private String descrizione;
+	private String descrizionePost;
 	
 	@ManyToOne(targetEntity = Categoria.class)
 	@JoinColumn(name = "categoria")
-	private Categoria categoria;
+	private Categoria categoriaPost;
 	
 	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "id_user")
@@ -31,17 +33,16 @@ public class Post {
 	
 	@Lob
 	@Column(name = "img")
-	private byte[] img;
+	private byte[] imgPost;
 
 	public Post() {
 	}
 
-	public Post(int id, String descrizione, Categoria categoria, User idUser, byte[] img) {
-		this.id = id;
-		this.descrizione = descrizione;
-		this.categoria = categoria;
+	public Post(String descrizionePost, Categoria categoriaPost, User idUser, byte[] imgPost) {
+		this.descrizionePost = descrizionePost;
+		this.categoriaPost = categoriaPost;
 		this.idUser = idUser;
-		this.img = img;
+		this.imgPost = imgPost;
 	}
 
 	public int getId() {
@@ -52,20 +53,20 @@ public class Post {
 		this.id = id;
 	}
 
-	public String getDescrizione() {
-		return descrizione;
+	public String getDescrizionePost() {
+		return descrizionePost;
 	}
 
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setDescrizionePost(String descrizionePost) {
+		this.descrizionePost = descrizionePost;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Categoria getCategoriaPost() {
+		return categoriaPost;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoriaPost(Categoria categoriaPost) {
+		this.categoriaPost = categoriaPost;
 	}
 
 	public User getIdUser() {
@@ -76,19 +77,18 @@ public class Post {
 		this.idUser = idUser;
 	}
 
-	public byte[] getImg() {
-		return img;
+	public byte[] getImgPost() {
+		return imgPost;
 	}
 
-	public void setImg(byte[] img) {
-		this.img = img;
+	public void setImgPost(byte[] imgPost) {
+		this.imgPost = imgPost;
 	}
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", descrizione=" + descrizione + ", categoria=" + categoria + ", id_user=" + idUser
-				+ "]";
+		return "Post [id=" + id + ", descrizionePost=" + descrizionePost + ", categoriaPost=" + categoriaPost
+				+ ", autorePost=" + idUser + ", imgPost=" + Arrays.toString(imgPost) + "]";
 	}
-	
 
 }
