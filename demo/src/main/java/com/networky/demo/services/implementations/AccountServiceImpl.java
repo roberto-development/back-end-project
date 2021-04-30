@@ -73,16 +73,11 @@ public class AccountServiceImpl implements AccountService {
 			boolean isPasswordMatch = encoder.matches(accountDTO.getPassword(), userDb.getPassword());
 			if(isPasswordMatch) {
 				UserDTO userDTO = userMapper.entityToUserDTO(userDb.getUser());
-//				System.out.println(userDTO.toString());
+				System.out.println(userDTO.toString());
 				
 				HashMap<String, Object> addedValues = new HashMap<String, Object>();
 				addedValues.put("id", userDTO.getId());
 				tokenDTO = jwtUtils.generateToken(addedValues);
-//				tokenDTO.setToken(token);
-//				tokenDTO.setExpiration(System.currentTimeMillis() + 60 * 60 * 24000);
-//				tokenDTO.setExpiration(token);
-//				userDTO.setToken(token);
-//				headers.add("Authentication", "Bearer " + tokenDTO.getToken());
 				System.out.println(tokenDTO.toString());
 				return ResponseEntity.ok().body(tokenDTO);
 			} else {
@@ -143,16 +138,17 @@ public class AccountServiceImpl implements AccountService {
 		loginAccount.setPassword(accountDTO.getPassword());
 		Account loggedAccount = getAccount(loginAccount);
 		if(loggedAccount == null) {
-			return null;
+			throw new UserNotFoundException("USER NOT FOUND");
+//			return null;
 		}
 		Account theQueryAccount = new Account(); 
 
+//		 è meglio creare entity per salvare new mail/pw o gestire diversamente questo metodo?
+		
 		if(accountDTO.getNewEmail() != null) {
 			theQueryAccount.setId(loggedAccount.getId());
 			theQueryAccount.setEmail(accountDTO.getNewEmail());
-
 		}
-
 		if(accountDTO.getNewPassword() != null) {
 			theQueryAccount.setPassword(accountDTO.getNewPassword());
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

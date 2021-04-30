@@ -24,7 +24,6 @@ public class Image implements Serializable {
 	@Column(name = "id")
 	private int id;
 	
-//	@Lob
 	@Column(name="img")
 	private byte[] img;
 	

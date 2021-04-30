@@ -51,6 +51,7 @@ public class ImageServiceImpl implements ImageService {
 	public void saveOrUpdateImage(ImageDTO image) {
 		
 			UserDTO newUserForImage = setUserImage(image);
+			System.out.println("newUserForImage : " + newUserForImage.toString());
 			User userConImage = mapper.DtoToEntityUser(newUserForImage);
 			
 			Image imageEntity = setImageEntity(image, userConImage);

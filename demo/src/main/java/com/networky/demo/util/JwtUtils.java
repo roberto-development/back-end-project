@@ -82,7 +82,7 @@ public class JwtUtils implements Serializable {
     }
 	
     public TokenDTO generateToken(HashMap<String, Object> claims) {
-    	Date expirationDate = new Date(System.currentTimeMillis() + 60 * 60 * 24000);
+    	Date expirationDate = new Date(System.currentTimeMillis() + 20000); //  * 60 * 24000
     	String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expirationDate)
@@ -90,7 +90,7 @@ public class JwtUtils implements Serializable {
                 .compact();
     	System.out.println(token);
     	newTokenDTO.setToken(token);
-    	newTokenDTO.setExpiration(System.currentTimeMillis() + 60 * 60 * 24000);
+    	newTokenDTO.setExpiration(System.currentTimeMillis() + 20000 * 20);
     	return newTokenDTO;
 //        ObjectMapper mapper = new ObjectMapper();
 //        return 

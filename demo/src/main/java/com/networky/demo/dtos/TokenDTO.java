@@ -1,7 +1,5 @@
 package com.networky.demo.dtos;
 
-import org.springframework.http.HttpHeaders;
-
 public class TokenDTO {
 	
 

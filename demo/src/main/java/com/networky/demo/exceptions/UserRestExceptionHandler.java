@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class UserRestExceptionHandler {
 
-
 	@ExceptionHandler
 	public ResponseEntity<ErrorResponse> handleUserException(UserNotFoundException userNotFoundException) {
 
@@ -20,9 +19,9 @@ public class UserRestExceptionHandler {
 
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 
-
-
 	}
+	
+//	fare eccezione token not found
 	
 //	bc exception return bad request
 //	user not found return unauthorized

@@ -3,6 +3,7 @@ package com.networky.demo.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,7 @@ import com.networky.demo.services.interfaces.UserService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins ="*" , allowedHeaders = "*" )
 public class ImageController extends CrossOriginController {
 
 
@@ -38,7 +40,6 @@ public class ImageController extends CrossOriginController {
 	@GetMapping("/getImage")
 	public byte[] getImage(HttpServletRequest httpRequest) { //@RequestHeader("Authentication") HttpServletRequest httpRequest
 		String bearer = httpRequest.getHeader("Authentication");
-//		System.out.println("getImage : " + userDTO.toString());
 		System.out.println("httpRequest : " + bearer);
 		byte[] getImage = null;
 		UserDTO userDTOtoFind = new UserDTO();
@@ -47,12 +48,11 @@ public class ImageController extends CrossOriginController {
 			System.out.println(userDTOtoFind.toString());
 			
 			if (userDTOtoFind != null) {
-//				
 				getImage = imageService.blobToByte(userDTOtoFind);
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+//			 gestire errore per utente che non ha foto profilo
 		}
 		return getImage;
 	}

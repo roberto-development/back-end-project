@@ -61,24 +61,18 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public UserDTO getUserInfo(HttpServletRequest httpRequest) {
-//		httpRequest.getHeader("key Authorization")   e dovrei avere il bearer con token
 		String decodeBearer = httpRequest.getHeader("Authentication");
-//		ottengo la stringa legata ad authentication
-		
-		
-		
+		UserDTO userDTO = null;
 		String decodeToken = decodeBearer.replace("Bearer ", "");
-		System.out.println("token: " + decodeToken);
 		
-//		Claims claims = jwtUtils.getClaimsFromToken(decodeToken);
-//		System.out.println(claims);
-		System.out.println(SIGNATURE);
+			
 		Integer idAccount = (Integer) Jwts.parser().setSigningKey(SIGNATURE).parseClaimsJws(decodeToken).getBody().get("id");
 		System.out.println(idAccount);
 		User findUser = userDAO.findUserById(idAccount);//		
-//		System.out.println("findUser : " + findUser.toString());
-		
-		UserDTO userDTO = userMapper.entityToUserDTO(findUser);
+//		System.out.println("findUser : " + findUser.toString()); non funziona => stack overflow
+		System.out.println("findUser id :" + findUser.getId()); 
+		userDTO = userMapper.entityToUserDTO(findUser);
+		System.out.println("userDTO id :" + userDTO.getId());
 		return userDTO;
 		
 	}

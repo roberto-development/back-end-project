@@ -36,19 +36,25 @@ public class AccountController extends CrossOriginController {
 		this.accountService = accountService;
 	}
 
+	
 	@PostMapping("/login")
+//	@CrossOrigin(origins = "http://localhost:4200/api/login", allowedHeaders = {})
 	public ResponseEntity<?> login(@RequestBody AccountDTO accountDTO) {
-		ResponseEntity<TokenDTO> authenticatedAccount = accountService.login(accountDTO);
 		try {
-			if(authenticatedAccount != null) {
-				return authenticatedAccount;
-			} else {
-				throw new UserNotFoundException("unauthorized");
-			}
-
+			ResponseEntity<TokenDTO> authenticatedAccount = accountService.login(accountDTO);
+//			if(authenticatedAccount != null) {
+//				System.out.println(authenticatedAccount.toString());
+//				return authenticatedAccount;
+//			} else {
+//				throw new UserNotFoundException("unauthorized");
+//			}
+			System.out.println("trovato account : " + authenticatedAccount.toString());
+			return authenticatedAccount;
 		} catch (Exception e) {
+			System.out.println("sono nella catch di login");
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(handler.handleUserException(except));
+			throw new UserNotFoundException("unauthorized");
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(handler.handleUserException(except));
 		}
 	}
 
@@ -57,7 +63,7 @@ public class AccountController extends CrossOriginController {
 		return  accountService.saveAccount(accountDTO);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200/reset-password", allowedHeaders = {})
+//	@CrossOrigin(origins = "http://localhost:4200/reset-password", allowedHeaders = {})
 	@PutMapping("/updateAccount")
 	public AccountDTO updateAccount(@RequestBody AccountDTO accountDTO, @RequestHeader("Authentication") String token) {
 		return accountService.updateAccount(accountDTO);
