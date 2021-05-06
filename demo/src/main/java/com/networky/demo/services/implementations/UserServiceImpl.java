@@ -2,11 +2,13 @@ package com.networky.demo.services.implementations;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.networky.demo.dao.LoginRepository;
-import com.networky.demo.dao.UserRepository;
 import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.dtos.TokenDTO;
 import com.networky.demo.dtos.UserDTO;
@@ -24,6 +24,8 @@ import com.networky.demo.entities.User;
 import com.networky.demo.exceptions.UserNotFoundException;
 import com.networky.demo.mapper.AccountMapper;
 import com.networky.demo.mapper.UserMapper;
+import com.networky.demo.repository.LoginRepository;
+import com.networky.demo.repository.UserRepository;
 import com.networky.demo.services.interfaces.UserService;
 import com.networky.demo.util.JwtUtils;
 
@@ -33,6 +35,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	private String SIGNATURE = "networky";
@@ -58,7 +61,6 @@ public class UserServiceImpl implements UserService {
 		this.jwtUtils = jwtUtils;
 	}
 	
-	@Transactional
 	@Override
 	public UserDTO getUserInfo(HttpServletRequest httpRequest) {
 		String decodeBearer = httpRequest.getHeader("Authentication");
@@ -113,7 +115,6 @@ public class UserServiceImpl implements UserService {
 	
 	
 //	metodo non implementato
-	@Transactional
 	@Override
 	public ResponseEntity<TokenDTO> getProfileUser(AccountDTO accountDTO) {
 //		Account dtoToEntity = accountMapper.dtoToAccountEntity(accountDTO);
@@ -150,13 +151,16 @@ public class UserServiceImpl implements UserService {
 	
 
 	@Override
-	@Transactional
 	public UserDTO updateUser(UserDTO userDTO) {
 		User userEntity = userMapper.newFieldsToEntity(userDTO);
 		User userToUpdate = userDAO.save(userEntity);
 		UserDTO userUpdated = userMapper.entityToUserDTO(userToUpdate);
 		return userUpdated;
 	}
-
+	
+	@Override
+	public List<User> listAll() {
+		return userDAO.findAll(Sort.by("id").ascending());
+	}
 }
 

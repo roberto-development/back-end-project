@@ -11,12 +11,12 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.FriendshipRepository;
 import com.networky.demo.dtos.FriendshipDTO;
 import com.networky.demo.entities.Friendship;
 import com.networky.demo.entities.Status;
 import com.networky.demo.entities.User;
 import com.networky.demo.mapper.FriendshipMapper;
+import com.networky.demo.repository.FriendshipRepository;
 import com.networky.demo.services.interfaces.FriendshipService;
 
 @Service

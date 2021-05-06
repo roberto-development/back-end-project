@@ -31,6 +31,8 @@ public class Post {
 	@JoinColumn(name = "id_user")
 	private User idUser;
 	
+//	riferimento a commenti? like? 
+	
 	@Lob
 	@Column(name = "img")
 	private byte[] imgPost;

@@ -37,6 +37,24 @@
 		</dependency>
 		
 		<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>4.1.0</version>
+</dependency>
+
+<!-- dep added for converting to pdf -->
+<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+<dependency>
+    <groupId>com.lowagie</groupId>
+    <artifactId>itext</artifactId>
+    <version>2.1.7</version>
+</dependency>
+
+
+
+		
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -72,6 +90,14 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/net.sf.supercsv/super-csv -->
+<dependency>
+    <groupId>net.sf.supercsv</groupId>
+    <artifactId>super-csv</artifactId>
+    <version>2.4.0</version>
+</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jackrabbit/oak-api -->
 		<dependency>
@@ -84,6 +110,15 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
 		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.6</version>
+</dependency>
+		
 
 
 

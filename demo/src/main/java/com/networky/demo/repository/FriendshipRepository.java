@@ -1,4 +1,4 @@
-package com.networky.demo.dao;
+package com.networky.demo.repository;
 
 import java.util.List;
 

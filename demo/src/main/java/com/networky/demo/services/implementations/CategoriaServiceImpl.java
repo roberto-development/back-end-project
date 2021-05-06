@@ -8,10 +8,10 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.CategoriaRepository;
 import com.networky.demo.dtos.CategoriaDTO;
 import com.networky.demo.entities.Categoria;
 import com.networky.demo.mapper.CategoriaMapper;
+import com.networky.demo.repository.CategoriaRepository;
 import com.networky.demo.services.interfaces.CategoriaService;
 
 @Service

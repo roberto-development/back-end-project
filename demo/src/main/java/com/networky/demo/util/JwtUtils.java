@@ -64,17 +64,6 @@ public class JwtUtils implements Serializable {
 	        return expiration;
 	    }
 	   
-//	public String callingMethodToken(HashMap<String, Object> addedValues2) throws JsonProcessingException {
-//		HashMap<String, Object> addedValues = new HashMap<String, Object>();
-//		addedValues.put("data", addedValues2);
-//		return generateToken(addedValues);
-//	}
-//	
-//	private Date generateExpirationDate() {
-//		Date exp = "1000000"; 
-//		return exp;
-////        return new Date(System.currentTimeMillis() + expiration * 1000);
-//    }
 	
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
@@ -82,7 +71,7 @@ public class JwtUtils implements Serializable {
     }
 	
     public TokenDTO generateToken(HashMap<String, Object> claims) {
-    	Date expirationDate = new Date(System.currentTimeMillis() + 20000); //  * 60 * 24000
+    	Date expirationDate = new Date(System.currentTimeMillis() + 20000 * 60); //  * 60 * 24000
     	String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expirationDate)

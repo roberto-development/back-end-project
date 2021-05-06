@@ -11,8 +11,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.PostRepository;
-import com.networky.demo.dao.UserRepository;
 import com.networky.demo.dtos.PostDTO;
 import com.networky.demo.dtos.UserDTO;
 import com.networky.demo.entities.Categoria;
@@ -20,6 +18,8 @@ import com.networky.demo.entities.Post;
 import com.networky.demo.entities.User;
 import com.networky.demo.mapper.PostMapper;
 import com.networky.demo.mapper.UserMapper;
+import com.networky.demo.repository.PostRepository;
+import com.networky.demo.repository.UserRepository;
 import com.networky.demo.services.interfaces.CategoriaService;
 import com.networky.demo.services.interfaces.PostService;
 import com.networky.demo.services.interfaces.UserService;

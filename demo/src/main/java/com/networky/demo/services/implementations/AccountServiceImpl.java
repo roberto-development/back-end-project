@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.AccountRepository;
-import com.networky.demo.dao.LoginRepository;
 import com.networky.demo.dtos.AccountDTO;
 import com.networky.demo.dtos.TokenDTO;
 import com.networky.demo.dtos.UserDTO;
@@ -24,6 +22,8 @@ import com.networky.demo.entities.User;
 import com.networky.demo.exceptions.UserNotFoundException;
 import com.networky.demo.mapper.AccountMapper;
 import com.networky.demo.mapper.UserMapper;
+import com.networky.demo.repository.AccountRepository;
+import com.networky.demo.repository.LoginRepository;
 import com.networky.demo.services.interfaces.AccountService;
 import com.networky.demo.util.JwtUtils;
 

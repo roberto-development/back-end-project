@@ -14,13 +14,13 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.networky.demo.dao.ImageRepository;
 import com.networky.demo.dtos.ImageDTO;
 import com.networky.demo.dtos.UserDTO;
 import com.networky.demo.entities.Image;
 import com.networky.demo.entities.User;
 import com.networky.demo.mapper.ImageMapper;
 import com.networky.demo.mapper.UserMapper;
+import com.networky.demo.repository.ImageRepository;
 import com.networky.demo.services.interfaces.ImageService;
 
 @Service
@@ -55,6 +55,7 @@ public class ImageServiceImpl implements ImageService {
 			User userConImage = mapper.DtoToEntityUser(newUserForImage);
 			
 			Image imageEntity = setImageEntity(image, userConImage);
+			imageDAO.deleteImageById(imageEntity.getUsersId().getId());
 			imageDAO.save(imageEntity);
 	}
 
